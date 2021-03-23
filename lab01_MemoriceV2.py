@@ -25,7 +25,8 @@ def zerocards(c):
     
 def play_cards(tab_game, tab_answer, c):
     #Tablero inicio de turno
-    tab_back = tab_game
+    tab_back = np.copy(tab_game)
+    #print("TAB_BACK BEFORE EVERYTHING ,,,,,,,,,,,\n" , tab_back)#DEBUG\\
     play_turn = 0
     while play_turn != 2:
         #Seleccion 1
@@ -69,7 +70,7 @@ def play_cards(tab_game, tab_answer, c):
                 #Comprobar Respuesta
                 
                 if tab_game[row1, col1] == tab_answer[row2, col2]:
-                    print(tab_game[row1, col1], "=====sel 1=====\n", tab_answer[row2, col2], "=====sel 2=====\n")#DEBUG\\
+                    #print(tab_game[row1, col1], "=====sel 1=====\n", tab_answer[row2, col2], "=====sel 2=====\n")#DEBUG\\
                     #Mostrar segunda seleccion
                     tab_game[row2, col2] = tab_answer[row2, col2]
                     print(tab_game)
@@ -78,7 +79,7 @@ def play_cards(tab_game, tab_answer, c):
                     
                     return(True, tab_game)
                 elif tab_game[row1, col1] != tab_answer[row2, col2]:
-                    print(tab_game[row1, col1], "=====sel 1=====\n", tab_answer[row2, col2], "=====sel 2=====\n")#DEBUG\\
+                    #print(tab_game[row1, col1], "=====sel 1=====\n", tab_answer[row2, col2], "=====sel 2=====\n")#DEBUG\\
                     #Mostrar segunda seleccion
                     tab_game[row2, col2] = tab_answer[row2, col2]
                     print(tab_game)
@@ -86,18 +87,19 @@ def play_cards(tab_game, tab_answer, c):
                     print("\n- - - F A I L - - -\n")  
                     
                     #Reiniciar Tablero
-                    tab_game = tab_back
-                    
+                    #print("TAB_BACK BEFORE\n" , tab_back)#DEBUG\\
+                    tab_game = np.copy(tab_back)
+                    #print("TAB_BACK after\n" , tab_back)#DEBUG\\
                     return(False, tab_back)
         
 
-#c = int(input("Cartas a jugar: "))
-c=2 #DEBUG\\
+c = int(input("Cartas a jugar: "))
+#c=2 #DEBUG\\
 
 #Tablas
 tab_answer = playcards(c)
 tab_game = zerocards(c)
-tab_back = tab_game
+tab_back = np.copy(tab_game)
 
 #puntaje
 point_total = 0
@@ -109,38 +111,39 @@ point_p2 = 0
 player_actual = 1
 player_result = 0
 
-while point_total < point_max:
+while point_total < point_max - 1:
     point_total = point_p1 + point_p2
-    print("point_total ", point_total) #DEBUG\\
-    print("Puntaje Actual:\n", 
-          point_p1, "P1\n",
-          point_p2, "P2\n", 
+    print("|||point_total ", point_total) #DEBUG\\
+    print("|||Puntaje Actual:\n|||", 
+          point_p1, "P1\n|||",
+          point_p2, "P2\n|||", 
           "Turno Jugador ", player_actual)
     print()
     print(tab_game)
     print()
-    print(tab_answer, "Tab_answer\n") #Tablero Respuesta #DEBUG\\
+    #print(tab_answer, "Tab_answer\n") #Tablero Respuesta #DEBUG\\
     #Turno P1
-    
     if player_actual == 1:
         player_result = play_cards(tab_game, tab_answer, c)
         #Puntaje
         if player_result[0] == True:
             point_p1 += 1
-            player_actual = 2
+            player_actual = 1
         elif player_result[0] == False:
             point_p1 += 0
-            tab_game = player_result[1]
+            #print(player_result[1])#DEBUG\\
+            tab_game = np.copy(player_result[1])
             player_actual = 2
     elif player_actual == 2:
         player_result = play_cards(tab_game, tab_answer, c)
         #Puntaje
         if player_result[0] == True:
             point_p2 += 1
-            player_actual = 1
+            player_actual = 2
         elif player_result[0] == False:
             point_p2 += 0
-            tab_game = player_result[1]
+            #print(player_result[1])#DEBUG\\
+            tab_game = np.copy(player_result[1])
             player_actual = 1
     
 print("Juego finalizado ")   
