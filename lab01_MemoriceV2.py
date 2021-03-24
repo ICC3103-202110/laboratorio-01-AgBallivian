@@ -7,8 +7,7 @@ def playcards(c):
         l.append(i)
     rng.shuffle(l) #lista shuffeleada
     cardsplay = np.zeros((2, c)) #lista de juego con 0    
-    #reemplazo de 0 por numeros, esta es la lista de juego
-    for j in range(0, (c)):
+    for j in range(0, (c)): #reemplazo de 0 por numeros, esta es la lista de juego
         cardsplay[0][j] = l[0]
         l.pop(0)
         #print(cardsplay, "\n")
@@ -26,15 +25,14 @@ def zerocards(c):
 def play_cards(tab_game, tab_answer, c):
     #Tablero inicio de turno
     tab_back = np.copy(tab_game)
-    #print("TAB_BACK BEFORE EVERYTHING ,,,,,,,,,,,\n" , tab_back)#DEBUG\\
     play_turn = 0
     while play_turn != 2:
         #Seleccion 1
         if play_turn == 0:
-            print("Primera Seleccion") 
-            print("seleccione fila (0 o 1): ")
+            print("First selection") 
+            print("-- Choose Row -- (0 or 1): ")
             row1 = int(input())
-            print("seleccione columna (0 a ",c-1, "): ")
+            print("|| Choose Column || (0 to ",c-1, "): ")
             col1 = int(input())
             #Coordenadas 1
             coord1 = (row1, col1)
@@ -42,59 +40,49 @@ def play_cards(tab_game, tab_answer, c):
             #Comprobar si ya esta seleccionado
             if tab_game[row1, col1] == 0:
                 #Mostrar primera seleccion
-                print("=========seleccion exitosa=========") #DEBUG\\
                 tab_game[row1, col1] = tab_answer[row1, col1]
-                print(tab_game)
+                print("\n", tab_game, "\n")
                 play_turn += 1
             else:
-                print("Error, La carta ya fue elegida anteriormente")
+                print("Error, The card was chosen already")
                 play_turn = 0
         #Seleccion 2    
         elif play_turn == 1:
-            print("Segunda Seleccion") 
-            print("seleccione fila ( 0 o 1 ): ")
+            print("Second Selection") 
+            print("-- Choose Row -- (0 or 1): ")
             row2 = int(input())
-            print("seleccione columna ( 0 a ",c-1, "): ")
+            print("|| Choose Column || (0 to ",c-1, "): ")
             col2 = int(input())
             #Coordenadas 2
-            coord2 = (row2, col2)
-            
+            coord2 = (row2, col2)            
             #Repite Segunda eleccion en caso de seleccionar la misma
             if coord1 == coord2: 
-                print("Error, seleccionaste la misma carta")
+                print("Error, You choose the same card")
                 play_turn = 1
             elif tab_game[row2, col2] != 0:
-                print("Error, La carta ya fue elegida anteriormente")
+                print("Error, The card was chosen already")
                 play_turn = 1
             else:
                 #Comprobar Respuesta
-                
                 if tab_game[row1, col1] == tab_answer[row2, col2]:
-                    #print(tab_game[row1, col1], "=====sel 1=====\n", tab_answer[row2, col2], "=====sel 2=====\n")#DEBUG\\
                     #Mostrar segunda seleccion
                     tab_game[row2, col2] = tab_answer[row2, col2]
-                    print(tab_game)
-                    
-                    print("\n+ + + P U N T O + + +\n")
-                    
+                    print(tab_game)           
+                    print("+ + + + + + + + + + + \n+ + + P O I N T + + +\n+ + + + + + + + + + + ") 
                     return(True, tab_game)
                 elif tab_game[row1, col1] != tab_answer[row2, col2]:
-                    #print(tab_game[row1, col1], "=====sel 1=====\n", tab_answer[row2, col2], "=====sel 2=====\n")#DEBUG\\
                     #Mostrar segunda seleccion
                     tab_game[row2, col2] = tab_answer[row2, col2]
-                    print(tab_game)
+                    print("\n", tab_game, "\n")
                     
-                    print("\n- - - F A I L - - -\n")  
+                    print("- - - - - - - - - -\n- - - F A I L - - -\n- - - - - - - - - -")  
                     
                     #Reiniciar Tablero
-                    #print("TAB_BACK BEFORE\n" , tab_back)#DEBUG\\
                     tab_game = np.copy(tab_back)
-                    #print("TAB_BACK after\n" , tab_back)#DEBUG\\
                     return(False, tab_back)
         
 
-c = int(input("Cartas a jugar: "))
-#c=2 #DEBUG\\
+c = int(input("How many pairs to play?: "))
 
 #Tablas
 tab_answer = playcards(c)
@@ -113,15 +101,13 @@ player_result = 0
 
 while point_total < point_max - 1:
     point_total = point_p1 + point_p2
-    print("|||point_total ", point_total) #DEBUG\\
-    print("|||Puntaje Actual:\n|||", 
+    print("|||Players Points:\n|||", 
           point_p1, "P1\n|||",
           point_p2, "P2\n|||", 
-          "Turno Jugador ", player_actual)
+          "Player Turn: ", player_actual)
     print()
     print(tab_game)
     print()
-    #print(tab_answer, "Tab_answer\n") #Tablero Respuesta #DEBUG\\
     #Turno P1
     if player_actual == 1:
         player_result = play_cards(tab_game, tab_answer, c)
@@ -131,7 +117,6 @@ while point_total < point_max - 1:
             player_actual = 1
         elif player_result[0] == False:
             point_p1 += 0
-            #print(player_result[1])#DEBUG\\
             tab_game = np.copy(player_result[1])
             player_actual = 2
     elif player_actual == 2:
@@ -142,7 +127,6 @@ while point_total < point_max - 1:
             player_actual = 2
         elif player_result[0] == False:
             point_p2 += 0
-            #print(player_result[1])#DEBUG\\
             tab_game = np.copy(player_result[1])
             player_actual = 1
     
