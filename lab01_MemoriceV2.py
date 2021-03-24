@@ -1,3 +1,6 @@
+#IMPORTANTE: CORREGIR MATRIZ PARA PODER ELIMINAR LAS CARTAS
+#CREAR INTERFAZ DE MATRIZ
+
 import random as rng
 import numpy as np
 def playcards(c):
@@ -67,7 +70,8 @@ def play_cards(tab_game, tab_answer, c):
                 if tab_game[row1, col1] == tab_answer[row2, col2]:
                     #Mostrar segunda seleccion
                     tab_game[row2, col2] = tab_answer[row2, col2]
-                    print(tab_game)           
+                    print(tab_game)
+                    tab_game[row2, col2] = "_"
                     print("+ + + + + + + + + + + \n+ + + P O I N T + + +\n+ + + + + + + + + + + ") 
                     return(True, tab_game)
                 elif tab_game[row1, col1] != tab_answer[row2, col2]:
@@ -129,5 +133,6 @@ while point_total < point_max - 1:
             point_p2 += 0
             tab_game = np.copy(player_result[1])
             player_actual = 1
-    
+#Crear Contador final para dar la win a jugador 1 o 2
+
 print("Juego finalizado ")   
