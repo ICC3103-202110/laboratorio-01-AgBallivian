@@ -71,7 +71,6 @@ def play_cards(tab_game, tab_answer, c):
                     #Mostrar segunda seleccion
                     tab_game[row2, col2] = tab_answer[row2, col2]
                     print(tab_game)
-                    tab_game[row2, col2] = "_"
                     print("+ + + + + + + + + + + \n+ + + P O I N T + + +\n+ + + + + + + + + + + ") 
                     return(True, tab_game)
                 elif tab_game[row1, col1] != tab_answer[row2, col2]:
