@@ -24,7 +24,34 @@ def playcards(c):
 def zerocards(c):
     tab_zeros = np.zeros((2, c))
     return(tab_zeros)
-    
+
+def Ui(tab_):
+    row = tab_.shape[0]
+    col = tab_.shape[1]
+    l1 = ["-"] * col
+    ui = [l1, l1]
+    string = ""
+    print(tab_, "Tablero ")
+    for i in range(0, row):
+        for j in range(0, col):
+            if tab_[i][j] == 0.9:
+                string = string + ui[i][j]
+                ui[i][j] = ' * '
+            elif tab_[i][j] == 0:
+                ui[i][j] = ' █ '
+                string = string + ui[i][j]
+            else: 
+                ui[i][j] = str(" ") + str(tab_[i][j]) + str (" ")
+                string = string + ui[i][j]
+    print("UI LIST ", ui)    
+    for i in range(0, row):
+        print("\n")
+        for j in range(0, col):
+            print(ui[i][j], '', end='')
+    #print("STRING ", string)
+    print("\n")
+    return(ui)
+
 def play_cards(tab_game, tab_answer, c):
     #Tablero inicio de turno
     tab_back = np.copy(tab_game)
@@ -44,7 +71,9 @@ def play_cards(tab_game, tab_answer, c):
             if tab_game[row1, col1] == 0:
                 #Mostrar primera seleccion
                 tab_game[row1, col1] = tab_answer[row1, col1]
-                print("\n", tab_game, "\n")
+                #print("\n", tab_game, "\n") #-----------------------------------------------
+                #BETA =====================================
+                Ui(tab_game)
                 play_turn += 1
             else:
                 print("Error, The card was chosen already")
@@ -70,14 +99,19 @@ def play_cards(tab_game, tab_answer, c):
                 if tab_game[row1, col1] == tab_answer[row2, col2]:
                     #Mostrar segunda seleccion
                     tab_game[row2, col2] = tab_answer[row2, col2]
-                    print(tab_game)
+                    #print(tab_game) ------------------------------------------------------
+                    #BETA =====================================
+                    Ui(tab_game)
                     print("+ + + + + + + + + + + \n+ + + P O I N T + + +\n+ + + + + + + + + + + ") 
+                    tab_game[row2, col2] = 0.9
+                    tab_game[row1, col1] = 0.9
                     return(True, tab_game)
                 elif tab_game[row1, col1] != tab_answer[row2, col2]:
                     #Mostrar segunda seleccion
                     tab_game[row2, col2] = tab_answer[row2, col2]
                     print("\n", tab_game, "\n")
-                    
+                    #BETA =====================================
+                    Ui(tab_game)
                     print("- - - - - - - - - -\n- - - F A I L - - -\n- - - - - - - - - -")  
                     
                     #Reiniciar Tablero
@@ -85,8 +119,8 @@ def play_cards(tab_game, tab_answer, c):
                     return(False, tab_back)
         
 
-c = int(input("How many pairs to play?: "))
-
+#c = int(input("How many pairs to play?: "))
+c = 2
 #Tablas
 tab_answer = playcards(c)
 tab_game = zerocards(c)
@@ -109,7 +143,9 @@ while point_total < point_max - 1:
           point_p2, "P2\n|||", 
           "Player Turn: ", player_actual)
     print()
-    print(tab_game)
+    #BETA =====================================
+    Ui(tab_game)
+    #print(tab_game) ------------------------------------------------------
     print()
     #Turno P1
     if player_actual == 1:
@@ -134,4 +170,4 @@ while point_total < point_max - 1:
             player_actual = 1
 #Crear Contador final para dar la win a jugador 1 o 2
 
-print("Juego finalizado ")   
+print("GAME OVER")   
