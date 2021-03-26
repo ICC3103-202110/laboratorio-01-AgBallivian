@@ -31,38 +31,14 @@ def Ui(tab_):
     l1 = ["0"] * col
     l2 = ["0"] * col
     ui = [l1, l2]
-    print(tab_, "Tablero ")
     for i in range(0, row):
-        for j in range(0, col):
-            print("iteracion [", i,"][", j,"]\n")
-            print(ui, "UI \n")
-            print(tab_, "TAB_ \n\n tab_[i][j] ", tab_[i][j])
-            
+        for j in range(0, col):         
             if tab_[i][j] == 0:
-                print("Hice el =0")
                 ui[i][j] = ' █ '
             elif tab_[i][j] > 0.9:
-                print("Hice el >0.9")
                 ui[i][j] = tab_[i][j]
             elif tab_[i][j] == 0.9:
-                print("Hice el == 0.9")
                 ui[i][j] = '  *  '
-            print(ui, "UI post\n")
-    """
-    for i in range(0, row):
-        for j in range(0, col):
-            print("UI FORJ ", ui, "J ", j)
-            if tab_[i][j] == float(0.9):
-                print("Tab[][] 1", tab_[i][j])
-                ui[i][j] = ' * '
-            elif tab_[i][j] == float(0):
-                print("Tab[][] 2", tab_[i][j])
-                ui[i][j] = ' █ '
-            else:
-                print("Tab[][] 3", tab_[i][j])
-                ui[i][j] = str(tab_[i][j])
-    """
-    print("UI FIN  ", ui)    
     for i in range(0, row):
         print("\n")
         for j in range(0, col):
@@ -89,7 +65,6 @@ def play_cards(tab_game, tab_answer, c):
             if tab_game[row1, col1] == 0:
                 #Mostrar primera seleccion
                 tab_game[row1, col1] = tab_answer[row1, col1]
-                #print("\n", tab_game, "\n") #-----------------------------------------------
                 #BETA =====================================
                 Ui(tab_game)
                 play_turn += 1
@@ -117,8 +92,6 @@ def play_cards(tab_game, tab_answer, c):
                 if tab_game[row1, col1] == tab_answer[row2, col2]:
                     #Mostrar segunda seleccion
                     tab_game[row2, col2] = tab_answer[row2, col2]
-                    #print(tab_game) ------------------------------------------------------
-                    #BETA =====================================
                     Ui(tab_game)
                     print("+ + + + + + + + + + + \n+ + + P O I N T + + +\n+ + + + + + + + + + + ") 
                     tab_game[row2, col2] = 0.9
@@ -127,8 +100,7 @@ def play_cards(tab_game, tab_answer, c):
                 elif tab_game[row1, col1] != tab_answer[row2, col2]:
                     #Mostrar segunda seleccion
                     tab_game[row2, col2] = tab_answer[row2, col2]
-                    print("\n", tab_game, "\n")
-                    #BETA =====================================
+                    #BETA 
                     Ui(tab_game)
                     print("- - - - - - - - - -\n- - - F A I L - - -\n- - - - - - - - - -")  
                     
@@ -137,8 +109,8 @@ def play_cards(tab_game, tab_answer, c):
                     return(False, tab_back)
         
 
-#c = int(input("How many pairs to play?: "))
-c = 2
+c = int(input("How many pairs to play?: "))
+
 #Tablas
 tab_answer = playcards(c)
 tab_game = zerocards(c)
@@ -161,9 +133,8 @@ while point_total < point_max - 1:
           point_p2, "P2\n|||", 
           "Player Turn: ", player_actual)
     print()
-    #BETA =====================================
+    #BETA
     Ui(tab_game)
-    #print(tab_game) ------------------------------------------------------
     print()
     #Turno P1
     if player_actual == 1:
