@@ -28,27 +28,45 @@ def zerocards(c):
 def Ui(tab_):
     row = tab_.shape[0]
     col = tab_.shape[1]
-    l1 = ["-"] * col
-    ui = [l1, l1]
-    string = ""
+    l1 = ["0"] * col
+    l2 = ["0"] * col
+    ui = [l1, l2]
     print(tab_, "Tablero ")
     for i in range(0, row):
         for j in range(0, col):
-            if tab_[i][j] == 0.9:
-                string = string + ui[i][j]
-                ui[i][j] = ' * '
-            elif tab_[i][j] == 0:
+            print("iteracion [", i,"][", j,"]\n")
+            print(ui, "UI \n")
+            print(tab_, "TAB_ \n\n tab_[i][j] ", tab_[i][j])
+            
+            if tab_[i][j] == 0:
+                print("Hice el =0")
                 ui[i][j] = ' █ '
-                string = string + ui[i][j]
-            else: 
-                ui[i][j] = str(" ") + str(tab_[i][j]) + str (" ")
-                string = string + ui[i][j]
-    print("UI LIST ", ui)    
+            elif tab_[i][j] > 0.9:
+                print("Hice el >0.9")
+                ui[i][j] = tab_[i][j]
+            elif tab_[i][j] == 0.9:
+                print("Hice el == 0.9")
+                ui[i][j] = '  *  '
+            print(ui, "UI post\n")
+    """
+    for i in range(0, row):
+        for j in range(0, col):
+            print("UI FORJ ", ui, "J ", j)
+            if tab_[i][j] == float(0.9):
+                print("Tab[][] 1", tab_[i][j])
+                ui[i][j] = ' * '
+            elif tab_[i][j] == float(0):
+                print("Tab[][] 2", tab_[i][j])
+                ui[i][j] = ' █ '
+            else:
+                print("Tab[][] 3", tab_[i][j])
+                ui[i][j] = str(tab_[i][j])
+    """
+    print("UI FIN  ", ui)    
     for i in range(0, row):
         print("\n")
         for j in range(0, col):
             print(ui[i][j], '', end='')
-    #print("STRING ", string)
     print("\n")
     return(ui)
 
