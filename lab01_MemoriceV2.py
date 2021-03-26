@@ -1,6 +1,3 @@
-#IMPORTANTE: CORREGIR MATRIZ PARA PODER ELIMINAR LAS CARTAS
-#CREAR INTERFAZ DE MATRIZ
-
 import random as rng
 import numpy as np
 def playcards(c):
@@ -35,7 +32,7 @@ def Ui(tab_):
             elif tab_[i][j] > 0.9:
                 ui[i][j] = tab_[i][j]
             elif tab_[i][j] == 0.9:
-                ui[i][j] = '  *  '
+                ui[i][j] = ' * '
     for i in range(0, row): #Mostrar interfaz
         print("\n")
         for j in range(0, col):
@@ -100,7 +97,7 @@ def play_cards(tab_game, tab_answer, c):
                     #Reiniciar Tablero
                     tab_game = np.copy(tab_back)
                     return(False, tab_back)
-        
+#JUEGO
 c = int(input("How many pairs to play?: "))
 
 #Tablas
@@ -125,7 +122,6 @@ while point_total < point_max - 1:
           point_p2, "P2\n|||", 
           "Player Turn: ", player_actual)
     print()
-    #BETA
     Ui(tab_game)
     print()
     #Turno P1
@@ -156,4 +152,4 @@ elif point_p1 < point_p2:
     print("PLAYER 2 WIN WITH ", point_p2, "POINTS!")
 else:
     print("TIE!")
-print("GAME OVER")   
+print("GAME OVER")
